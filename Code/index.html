@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shortest Path — Kampus UNIB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header>
+    <div class="logo-slot" title="Klik untuk upload logo UNIB">
+      <img id="logo-img" alt="Logo UNIB" />
+      <span id="logo-hint">Logo<br>UNIB</span>
+      <input type="file" id="logo-input" accept="image/*" />
+    </div>
+    <div class="hdr-text">
+      <h1>Model Graf Jalur Terpendek</h1>
+      <p>Denah Gedung-Gedung Universitas Bengkulu</p>
+    </div>
+    <span class="hdr-badge">Dijkstra's Algorithm</span>
+  </header>
+
+  <!-- ── Controls ── -->
+  <div class="controls">
+    <div class="cg">
+      <label for="src-sel">Titik Awal</label>
+      <select id="src-sel"></select>
+    </div>
+    <div class="cg">
+      <label for="dst-sel">Titik Tujuan</label>
+      <select id="dst-sel"></select>
+    </div>
+    <button class="btn primary" onclick="runDijkstra()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M3 12h18M13 6l6 6-6 6"/>
+      </svg>
+      Cari Jalur
+    </button>
+    <button class="btn" onclick="resetAll()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+        <path d="M3 3v5h5"/>
+      </svg>
+      Reset
+    </button>
+  </div>
+
+  <!-- ── Main ── -->
+  <div class="main">
+
+    <!-- Map canvas -->
+    <div id="map-wrap">
+      <svg id="campus-svg" viewBox="0 0 1130 610" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="tip" id="tip"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <!-- Metric cards (hidden until a path is found) -->
+      <div class="sb" id="metric-block" style="display:none">
+        <div class="sb-lbl">Hasil</div>
+        <div class="metrics" id="metric-cards"></div>
+      </div>
+
+      <!-- Route steps -->
+      <div class="sb">
+        <div class="sb-lbl">Rute</div>
+        <div id="route-wrap">
+          <div class="empty">Pilih titik awal &amp; tujuan,<br>lalu klik <strong>Cari Jalur</strong></div>
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="sb">
+        <div class="sb-lbl">Legenda</div>
+        <div class="leg">
+          <div class="lr"><div class="ld" style="background:var(--start)"></div>Titik Awal</div>
+          <div class="lr"><div class="ld" style="background:var(--end)"></div>Titik Tujuan</div>
+          <div class="lr"><div class="ld" style="background:var(--path)"></div>Node pada Jalur</div>
+          <div class="lr"><div class="ll" style="background:var(--path)"></div>Jalur Terpendek</div>
+          <div class="lr"><div class="ll" style="background:var(--bdr)"></div>Jalan Biasa</div>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="sb" style="border-bottom:none">
+        <div class="sb-lbl">Keterangan</div>
+        <p style="font-size:11px;color:var(--muted);line-height:1.7">
+          Klik node pada peta untuk memilih titik tujuan.
+          Bobot edge = estimasi jarak antar gedung dalam meter.
+        </p>
+      </div>
+
+    </div><!-- /sidebar -->
+  </div><!-- /main -->
+
+  <script src="script.js"></script>
+</body>
+</html>

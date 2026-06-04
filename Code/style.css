@@ -1,0 +1,211 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:  #002B5C;
+  --gold:  #C8970A;
+  --gold2: #F5C842;
+  --bg:    #F2F5F9;
+  --surf:  #ffffff;
+  --bdr:   #D6E0EC;
+  --text:  #1a2740;
+  --muted: #5a6a80;
+  --path:  #1565C0;
+  --start: #1B6B3A;
+  --end:   #B71C1C;
+  --font:  'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+header {
+  background: var(--navy);
+  border-bottom: 3px solid var(--gold);
+  padding: 0 20px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo-slot {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px dashed rgba(200,151,10,0.55);
+  background: rgba(200,151,10,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+.logo-slot img        { width: 100%; height: 100%; object-fit: contain; display: none; }
+.logo-slot span       { font-size: 9px; color: rgba(200,151,10,0.7); text-align: center; line-height: 1.4; pointer-events: none; }
+#logo-input           { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+
+.hdr-text    { flex: 1; }
+.hdr-text h1 { font-size: 15px; font-weight: 600; color: #fff; }
+.hdr-text p  { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+.hdr-badge {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: var(--gold2);
+  background: rgba(200,151,10,0.12);
+  border: 1px solid rgba(200,151,10,0.28);
+}
+
+/* ── Controls ── */
+.controls {
+  background: var(--surf);
+  border-bottom: 1px solid var(--bdr);
+  padding: 12px 20px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.cg       { display: flex; flex-direction: column; gap: 4px; }
+.cg label { font-size: 11px; font-weight: 500; color: var(--muted); }
+
+select {
+  font-family: var(--font);
+  font-size: 13px;
+  min-width: 210px;
+  padding: 7px 28px 7px 10px;
+  border: 1.5px solid var(--bdr);
+  border-radius: 7px;
+  background: var(--bg);
+  color: var(--text);
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%235a6a80' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 9px center;
+  transition: border-color .18s;
+}
+select:focus { border-color: var(--navy); }
+
+.btn {
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 7px;
+  cursor: pointer;
+  border: 1.5px solid var(--bdr);
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.btn:hover         { background: #e4eaf2; }
+.btn.primary       { background: var(--navy); color: #fff; border-color: var(--navy); }
+.btn.primary:hover { background: #00225a; }
+.btn svg           { width: 14px; height: 14px; }
+
+/* ── Main layout ── */
+.main     { display: flex; flex: 1; overflow: hidden; min-height: 0; }
+#map-wrap { flex: 1; position: relative; overflow: hidden; background: var(--bg); min-height: 460px; }
+#campus-svg { width: 100%; height: 100%; display: block; }
+
+/* ── Tooltip ── */
+.tip {
+  position: absolute;
+  display: none;
+  pointer-events: none;
+  background: var(--navy);
+  color: #fff;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  z-index: 10;
+  white-space: nowrap;
+  box-shadow: 0 3px 12px rgba(0,43,92,0.22);
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 250px;
+  border-left: 1px solid var(--bdr);
+  background: var(--surf);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.sb      { padding: 13px 15px; border-bottom: 1px solid var(--bdr); }
+.sb-lbl  {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin-bottom: 9px;
+}
+
+/* Metrics */
+.metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.mc      { background: var(--bg); border-radius: 7px; padding: 9px 11px; border: 1px solid var(--bdr); }
+.mc-l    { font-size: 10px; color: var(--muted); margin-bottom: 2px; }
+.mc-v    { font-size: 21px; font-weight: 600; color: var(--navy); }
+.mc-u    { font-size: 10px; color: var(--muted); }
+
+/* Route steps */
+.step             { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; position: relative; }
+.step + .step::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: -2px;
+  width: 1px;
+  height: 10px;
+  background: var(--bdr);
+}
+.dot   { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; }
+.dot.s { background: var(--start); box-shadow: 0 0 0 2px rgba(27,107,58,.18); }
+.dot.m { background: var(--path); }
+.dot.e { background: var(--end);   box-shadow: 0 0 0 2px rgba(183,28,28,.14); }
+.sn    { font-size: 12px; color: var(--text); line-height: 1.4; }
+.sd    { font-size: 10px; color: var(--muted); margin-top: 1px; }
+
+/* Legend */
+.leg    { display: flex; flex-direction: column; gap: 6px; }
+.lr     { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted); }
+.ld     { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.ll     { width: 18px; height: 2px; border-radius: 1px; flex-shrink: 0; }
+
+/* Empty state */
+.empty { text-align: center; padding: 24px 10px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+
+/* Animations */
+@keyframes fi {
+  from { opacity: 0; transform: translateY(3px); }
+  to   { opacity: 1; transform: none; }
+}
+.step { animation: fi .2s ease both; }
+
+/* Scrollbar */
+.sidebar::-webkit-scrollbar       { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--bdr); border-radius: 4px; }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .main    { flex-direction: column; }
+  .sidebar { width: 100%; border-left: none; border-top: 1px solid var(--bdr); }
+}
